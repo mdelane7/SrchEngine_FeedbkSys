@@ -1,0 +1,8 @@
+GoogleScraper/run.py
+GoogleScraper/setup.py
+GoogleScraper.egg-info/PKG-INFO
+GoogleScraper.egg-info/SOURCES.txt
+GoogleScraper.egg-info/dependency_links.txt
+GoogleScraper.egg-info/entry_points.txt
+GoogleScraper.egg-info/requires.txt
+GoogleScraper.egg-info/top_level.txt

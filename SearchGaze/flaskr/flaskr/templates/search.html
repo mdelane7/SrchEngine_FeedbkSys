@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+	<head>
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Search</title>
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <!-- custom css -->
+        <link href={{ url_for('static', filename='entity.css') }} rel="stylesheet">
+        <link rel="stylesheet" href={{ url_for('static', filename='demo.css')}}>
+		<link rel="stylesheet" href={{ url_for('static', filename='header-search.css')}}>
+		<link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">	</script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		
+		<script>	
+            $(document).ready(function() {
+                // $('#header').load('header.html'); 
+                $(".a_cls").click(function(e){
+					e.preventDefault();
+					{% if data %}
+					var multiplier = parseInt(event.target.id);
+					$(".anc").text(function(i){
+						var index = 5*multiplier + i;
+						var string = "#my-data" + index;
+						return $(string).data("name");
+				  	});
+
+					$(".dv").text(function(i){
+						var index = 5*multiplier + i;
+						var string = "#my-data" + index;
+						return link = $(string).data("link");
+					});
+
+					$(".spn").text(function(i){
+						var index = 5*multiplier + i;
+						var string = "#my-data" + index;
+						return desc = $(string).data("desc");
+					});
+
+					{% endif %}
+            	});
+			});
+        </script>
+    </head>
+	<body style="height:700px">
+		<div id="header"></div>
+
+		<div class="row searchbar" style="width:99%; margin-top:5px; height:7vh; border-left:20">
+			<div style="height:inherit;">
+				<form action="/search", method="POST" style="width:100%;height:inherit;">
+					<input type="submit" value="Search" style="float: right; width:25%; height:inherit;" class="btn btn-primary" id = "search" />
+						<div style="overflow: hidden; height:inherit;">
+							<input type="text" style="width: 100%; height: inherit; margin-left: 0.5cm;" placeholder="Search" id ="searchfield" name ="searchfield" />
+						</div>
+				</form>
+			</div>
+		</div>
+
+		<div id="load1" style="height:100px;">
+			{% if data %} 
+	    	<div class='catHead' style="position: relative; top: 35%; font-size:12px;">
+	    		<div style ="color:blue;font-size:14px" > <a class="anc" href = "{{data[0].google_link}}">{{data[0].name}} </a></div>
+	    		<div class="dv" style="color:green;"> {{data[0].google_link[28:]}}</div>
+	        	<span class="spn" id="entity" style=" width: 100%; position: relative; transform: translateY(-50%);">{{data[0].description}}</span>
+	    	</div>
+	    	<div class='catHead' style="position: relative; top: 60%; font-size:12px;">
+	        	<div style ="color:blue;font-size:14px" > <a class="anc" href = "{{data[1].google_link}}">{{data[1].name}} </a> </div>
+	    		<div class="dv" style="color:green;"> {{data[1].google_link[28:]}} </div>
+	        	<span class="spn" id="entity" style=" width: 100%; position: relative; transform: translateY(-50%);">{{data[1].description}}</span>
+	    	</div>
+	    	<div class='catHead' style="position: relative; top: 90%; font-size:12px;">
+	        	<div style ="color:blue;font-size:14px" > <a class="anc" href = "{{data[2].google_link}}">{{data[2].name}} </a></div>
+	    		<div class="dv" style="color:green;"> {{data[2].google_link[28:]}} </div>
+	        	<span class="spn" id="entity" style=" width: 100%; position: relative; transform: translateY(-50%);">{{data[2].description}}</span>
+	    	</div>
+	    	<div class='catHead' style="position: relative; top: 120%; font-size:12px;">
+	        	<div style ="color:blue;font-size:14px" > <a class="anc" href = "{{data[3].google_link}}">{{data[3].name}} </a> </div>
+	    		<div class="dv" style="color:green;"> {{data[3].google_link[28:]}} </div>
+	        	<span class="spn" id="entity" style=" width: 100%; position: relative; transform: translateY(-50%);">{{data[3].description}}</span>
+	    	</div>
+	    	<div class='catHead' style="position: relative; top: 150%; font-size:12px;">
+	        	<div style ="color:blue;font-size:14px" > <a class="anc" href = "{{data[4].google_link}}">{{data[4].name}} </a> </div>
+	    		<div class="dv" style="color:green;"> {{data[4].google_link[28:]}} </div>
+	        	<span class="spn" id="entity" style=" width: 100%; position: relative; transform: translateY(-50%);">{{data[4].description}}</span>
+	    	</div> 
+	    	{% endif %} 
+	    </div>
+
+	    {% if data %}
+	    <meta id="my-data0" data-name="{{ data[0].name }}" data-link="{{ data[0].google_link[28:] }}" data-desc= "{{ data[0].description }}" >
+	    <meta id="my-data1" data-name="{{ data[1].name }}" data-link="{{ data[1].google_link[28:] }}" data-desc= "{{ data[1].description }}" >
+	    <meta id="my-data2" data-name="{{ data[2].name }}" data-link="{{ data[2].google_link[28:] }}" data-desc= "{{ data[2].description }}" >
+	    <meta id="my-data3" data-name="{{ data[3].name }}" data-link="{{ data[3].google_link[28:] }}" data-desc= "{{ data[3].description }}" >
+	    <meta id="my-data4" data-name="{{ data[4].name }}" data-link="{{ data[4].google_link[28:] }}" data-desc= "{{ data[4].description }}" >
+	    <meta id="my-data5" data-name="{{ data[5].name }}" data-link="{{ data[5].google_link[28:] }}" data-desc= "{{ data[5].description }}" >
+	    <meta id="my-data6" data-name="{{ data[6].name }}" data-link="{{ data[6].google_link[28:] }}" data-desc= "{{ data[6].description }}" >
+	    <meta id="my-data7" data-name="{{ data[7].name }}" data-link="{{ data[7].google_link[28:] }}" data-desc= "{{ data[7].description }}" >
+	    <meta id="my-data8" data-name="{{ data[8].name }}" data-link="{{ data[8].google_link[28:] }}" data-desc= "{{ data[8].description }}" >
+	    <meta id="my-data9" data-name="{{ data[9].name }}" data-link="{{ data[9].google_link[28:] }}" data-desc= "{{ data[9].description }}" >
+	    <meta id="my-data10" data-name="{{ data[10].name }}" data-link="{{ data[10].google_link[28:] }}" data-desc= "{{ data[10].description }}" >
+	    <meta id="my-data11" data-name="{{ data[11].name }}" data-link="{{ data[11].google_link[28:] }}" data-desc= "{{ data[11].description }}" >
+	    <meta id="my-data12" data-name="{{ data[12].name }}" data-link="{{ data[12].google_link[28:] }}" data-desc= "{{ data[12].description }}" >
+	    <meta id="my-data13" data-name="{{ data[13].name }}" data-link="{{ data[13].google_link[28:] }}" data-desc= "{{ data[13].description }}" >
+	    <meta id="my-data14" data-name="{{ data[14].name }}" data-link="{{ data[14].google_link[28:] }}" data-desc= "{{ data[14].description }}" >
+	    <meta id="my-data15" data-name="{{ data[15].name }}" data-link="{{ data[15].google_link[28:] }}" data-desc= "{{ data[15].description }}" >
+	    <meta id="my-data16" data-name="{{ data[16].name }}" data-link="{{ data[16].google_link[28:] }}" data-desc= "{{ data[16].description }}" >
+	    <meta id="my-data17" data-name="{{ data[17].name }}" data-link="{{ data[17].google_link[28:] }}" data-desc= "{{ data[17].description }}" >
+	    <meta id="my-data18" data-name="{{ data[18].name }}" data-link="{{ data[18].google_link[28:] }}" data-desc= "{{ data[18].description }}" >
+	    <meta id="my-data19" data-name="{{ data[19].name }}" data-link="{{ data[19].google_link[28:] }}" data-desc= "{{ data[19].description }}" >
+	    <meta id="my-data20" data-name="{{ data[20].name }}" data-link="{{ data[20].google_link[28:] }}" data-desc= "{{ data[20].description }}" >
+	    <meta id="my-data21" data-name="{{ data[21].name }}" data-link="{{ data[21].google_link[28:] }}" data-desc= "{{ data[21].description }}" >
+	    <meta id="my-data22" data-name="{{ data[22].name }}" data-link="{{ data[22].google_link[28:] }}" data-desc= "{{ data[22].description }}" >
+	    <meta id="my-data23" data-name="{{ data[23].name }}" data-link="{{ data[23].google_link[28:] }}" data-desc= "{{ data[23].description }}" >
+	    <meta id="my-data24" data-name="{{ data[24].name }}" data-link="{{ data[24].google_link[28:] }}" data-desc= "{{ data[24].description }}" >
+	    <table style="position:relative; top:70%; width:25%; margin-left:175px;" cellwidth:2%>
+	        	<tr>
+	        		<td>
+	        			<a class="a_cls" id="0" href="#">1</a>     			
+	        		</td>
+	        		<td>
+	        			<a class="a_cls" id="1" href="#">2</a>
+	        		</td>
+	        		<td>
+	        			<a class="a_cls" id="2" href="#">3</a>
+	        		</td>
+	        		<td>
+	        			<a class="a_cls" id="3" href="#">4</a>
+	        		</td>
+	        		<td>
+	        			<a class="a_cls" id="4" href="#">5</a>
+	        		</td>
+	        	</tr>
+	    </table>
+	    {% endif %}
+	</body>
+</html>
